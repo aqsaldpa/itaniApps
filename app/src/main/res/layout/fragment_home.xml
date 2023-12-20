@@ -12,53 +12,15 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp">
 
-        <RelativeLayout
-            android:id="@+id/rPage"
+        <TextView
+            android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
-
-            <ImageView
-                android:id="@+id/imageHeader"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/logoitani" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/black_transparent"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="20dp">
-
-                <TextView
-                    android:id="@+id/header_title"
-                    style="@style/Base.ThemeOverlay.AppCompat.Light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="Dalam rangka memeriahkan wkampkopkaopkdapokdpoksadkaopw[awpekawpkdakakdfsfkapk" />
-
-                <TextView
-                    android:id="@+id/date"
-                    style="@style/Base.ThemeOverlay.AppCompat.Light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    tools:text="2023-11-04 22:00 WIB" />
-
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvNews"

@@ -14,9 +14,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ItaniApps"
+        android:windowSoftInputMode="adjustPan|adjustResize"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".fragment.product.UpdateProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.home.news.UpdateNewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.home.news.DetailNewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.product.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.setting.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.home.news.AddNewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".intro.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".home.HomeActivity"

@@ -4,13 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.project.itaniapps.config.General.IS_LOGIN
 import com.project.itaniapps.config.General.PREF_NAME
-import com.project.itaniapps.config.General.PRIVATE_MODE
-import com.project.itaniapps.fragment.setting.SettingFragment
-import com.project.itaniapps.intro.login.LoginActivity
 
 class SharedPref(context: Context) {
 
-    var pref: SharedPreferences? = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+    var pref: SharedPreferences? = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     var editor: SharedPreferences.Editor? = pref?.edit()
 
     fun setSignIn(isLogin: Boolean) {
@@ -18,8 +15,11 @@ class SharedPref(context: Context) {
         editor?.commit()
     }
 
-    fun setName(name: String) {
-        editor?.putString("name", name)
+    fun setUsertoSharedPref(username: String, address: String, number: String, email: String){
+        editor?.putString("username",username)
+        editor?.putString("address",address)
+        editor?.putString("number",number)
+        editor?.putString("email",email)
         editor?.commit()
     }
 
@@ -27,9 +27,7 @@ class SharedPref(context: Context) {
         return pref?.getBoolean(IS_LOGIN, false)
     }
 
-    fun isLogout() {
-        editor?.clear()
-        editor?.commit()
+    fun getStringFromSharedPref(value: String?): String? {
+        return pref?.getString(value, "")
     }
-
 }

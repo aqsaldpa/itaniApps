@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#0a6545</color>
+    <color name="red">#FF0000</color>
     <color name="common_background">#F2F2F2</color>
     <color name="Grey">#808080</color>
     <color name="common_surface">#ffffff</color>

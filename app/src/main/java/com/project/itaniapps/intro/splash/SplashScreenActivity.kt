@@ -2,12 +2,11 @@ package com.project.itaniapps.intro.splash
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowInsets
-import com.project.itaniapps.DatabaseHelper
+import androidx.appcompat.app.AppCompatActivity
 import com.project.itaniapps.config.General
 import com.project.itaniapps.config.SharedPref
 import com.project.itaniapps.databinding.ActivitySplashScreenBinding
@@ -20,7 +19,6 @@ class SplashScreenActivity : AppCompatActivity() {
     private val sharedPref by lazy {
         SharedPref(this)
     }
-    private lateinit var db: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +28,6 @@ class SplashScreenActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         }
-        db = DatabaseHelper(this)
 
         runSplashScreen()
     }

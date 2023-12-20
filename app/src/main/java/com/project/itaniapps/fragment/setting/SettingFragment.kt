@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.project.itaniapps.fragment.home.news.AddNewsActivity
+import com.project.itaniapps.fragment.product.AddProductActivity
 import com.project.itaniapps.R
 import com.project.itaniapps.config.SharedPref
-import com.project.itaniapps.home.HomeActivity
 import com.project.itaniapps.intro.splash.SplashScreenActivity
 
 class SettingFragment : Fragment() {
@@ -31,6 +32,18 @@ class SettingFragment : Fragment() {
         val cardAddProduct = view.findViewById<CardView>(R.id.cardAddProduct)
         val cardSeeProfile = view.findViewById<CardView>(R.id.cardProfile)
         val cardLogout = view.findViewById<CardView>(R.id.cardLogout)
+
+        cardSeeProfile.setOnClickListener {
+            startActivity(Intent(activity, ProfileActivity::class.java))
+        }
+
+        cardAddNews.setOnClickListener {
+            startActivity(Intent(activity, AddNewsActivity::class.java))
+        }
+
+        cardAddProduct.setOnClickListener {
+            startActivity(Intent(activity, AddProductActivity::class.java))
+        }
 
         cardLogout.setOnClickListener {
             sharedPref.setSignIn(false)

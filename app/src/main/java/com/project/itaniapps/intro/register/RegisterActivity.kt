@@ -1,11 +1,12 @@
-package com.project.itaniapps
+package com.project.itaniapps.intro.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Data
+import android.util.Patterns
 import android.view.MenuItem
 import android.widget.Toast
-import com.project.itaniapps.databinding.ActivityLoginBinding
+import com.project.itaniapps.R
+import com.project.itaniapps.config.DatabaseHelper
 import com.project.itaniapps.databinding.ActivityRegisterBinding
 import com.project.itaniapps.model.User
 
@@ -35,11 +36,20 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun registerUser() {
         val username = binding.username.text.toString().trim()
+        val email = binding.email.text.toString().trim()
+        val address = binding.address.text.toString().trim()
+        val phoneNumber = binding.number.text.toString().trim()
         val password = binding.password.text.toString().trim()
         val confirmPass = binding.confirmPassword.text.toString().trim()
 
-        if (checkvalidation(username, password, confirmPass)) {
-            val user = User(username = username, password = password)
+        if (checkvalidation(email,username, password, confirmPass)) {
+            val user = User(
+                username = username,
+                password = password,
+                email = email,
+                address = address,
+                number = phoneNumber
+            )
             if (!db.checkUser(username)) {
                 db.registerUser(user)
                 Toast.makeText(this, "User berhasil terdaftar", Toast.LENGTH_SHORT).show()
@@ -52,6 +62,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkvalidation(
+        email:String,
         username: String,
         pass: String,
         confirmPass: String
@@ -65,10 +76,17 @@ class RegisterActivity : AppCompatActivity() {
         } else if (pass != confirmPass) {
             binding.confirmPassword.error = "Password Anda tidak sama!"
             binding.confirmPassword.requestFocus()
-        } else {
+        } else if (!isValidEmail(email)) {
+            binding.email.error = "Email tidak sesuai !"
+            binding.email.requestFocus()
+        }  else {
             return true
         }
         return false
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

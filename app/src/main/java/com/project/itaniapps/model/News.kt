@@ -1,8 +1,10 @@
 package com.project.itaniapps.model
 
 data class News(
-    val image: String,
-    val type: String,
-    val title: String,
-    val date: String,
-) : java.io.Serializable
+    var id: Int = 0,
+    var image: String = "",
+    var type: String = "",
+    var title: String = "",
+    var desc: String = "",
+    var date: String = "",
+)

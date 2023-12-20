@@ -3,9 +3,10 @@ package com.project.itaniapps.intro.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
-import com.project.itaniapps.DatabaseHelper
-import com.project.itaniapps.RegisterActivity
+import com.project.itaniapps.config.DatabaseHelper
+import com.project.itaniapps.intro.register.RegisterActivity
 import com.project.itaniapps.config.SharedPref
 import com.project.itaniapps.databinding.ActivityLoginBinding
 import com.project.itaniapps.home.HomeActivity
@@ -28,64 +29,69 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val username = binding.username.text.toString().trim()
+            val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
-            if (checkvalidation(username, password)) {
+            if (checkvalidation(email, password)) {
                 login()
             }
         }
 
     }
 
-    private fun checkvalidation(username: String, pass: String): Boolean {
-        if (username.isEmpty()) {
-            binding.username.error = "Masukkan Username Anda"
-            binding.username.requestFocus()
+    private fun checkvalidation(email: String, pass: String): Boolean {
+        if (email.isEmpty()) {
+            binding.email.error = "Masukkan Email Anda"
+            binding.email.requestFocus()
         } else if (pass.isEmpty()) {
             binding.password.error = "Masukkan Password Anda"
             binding.password.requestFocus()
+        } else if (!isValidEmail(email)) {
+            binding.email.error = "Email tidak sesuai !"
+            binding.email.requestFocus()
         } else {
             return true
         }
         return false
     }
 
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
     private fun login() {
-        if (!db.checkUserLogin(
-                binding.username.text.toString().trim(),
-                binding.password.toString().trim()
+        if (db.checkUserLogin(
+                binding.email.text.toString().trim(),
+                binding.password.text.toString().trim()
             )
         ) {
             Toast.makeText(
                 applicationContext,
-                db.checkUserLogin(
-                    binding.username.text.toString().trim(),
-                    binding.password.toString().trim()
-                ).toString(),
+                "Login Sukses",
                 Toast.LENGTH_SHORT
             ).show()
-//            Toast.makeText(
-//                applicationContext, "Login Berhasil , Selamat Datang", Toast.LENGTH_SHORT
-//            ).show()
-//            val username = binding.username.text.trim().toString()
-//            sharedPref.setName(username)
-//            sharedPref.setSignIn(true)
-//            startActivity(Intent(this, HomeActivity::class.java))
-//            finish()
+            var name = db.getUser(binding.email.text.toString()).username
+            var emails = db.getUser(binding.email.text.toString()).email
+            var adresss = db.getUser(binding.email.text.toString()).address
+            var phonenumber = db.getUser(binding.email.text.toString()).number
+            sharedPref.setSignIn(true)
+            sharedPref.setUsertoSharedPref(
+                username = name,
+                email = emails,
+                address = adresss,
+                number = phonenumber,
+            )
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         } else {
+            binding.password.clearFocus()
+            binding.email.clearFocus()
+
             Toast.makeText(
                 applicationContext,
-                db.checkUserLogin(
-                    binding.username.text.toString().trim(),
-                    binding.password.toString().trim()
-                ).toString(),
+                "User tidak terdaftar , Silahkan Daftar dahulu",
                 Toast.LENGTH_SHORT
             ).show()
-//            Toast.makeText(
-//                    applicationContext,
-//            "User tidak terdaftar , Silahkan Daftar dahulu",
-//            Toast.LENGTH_SHORT
-//            ).show()
+
         }
 
     }
